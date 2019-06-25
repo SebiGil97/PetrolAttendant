@@ -24,7 +24,6 @@ public class ActivityAddCar extends Activity implements View.OnClickListener {
         Button b=null;
         b=findViewById(R.id.activity_add_car_button_saveCar);
         b.setOnClickListener(this);
-
     }
 
     @Override
