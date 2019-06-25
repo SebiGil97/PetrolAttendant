@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "500606790379",
+    "firebase_url": "https://petrolattendant-f9b36.firebaseio.com",
+    "project_id": "petrolattendant-f9b36",
+    "storage_bucket": "petrolattendant-f9b36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500606790379:android:df9b61c781b97eaf",
+        "android_client_info": {
+          "package_name": "at.fhooe.mc.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500606790379-6sv165apn4rvfjostjv864050ooflrpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ3SZzeP9Nw2jEtwIsLSIh81HZnTpU1mI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500606790379-6sv165apn4rvfjostjv864050ooflrpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
