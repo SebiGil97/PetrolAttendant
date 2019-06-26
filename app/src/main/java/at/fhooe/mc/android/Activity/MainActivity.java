@@ -192,7 +192,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }//onActivityResult
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
