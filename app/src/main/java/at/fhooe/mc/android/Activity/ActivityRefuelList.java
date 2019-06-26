@@ -33,6 +33,8 @@ import at.fhooe.mc.android.R;
 import at.fhooe.mc.android.Objects.Refuel;
 import at.fhooe.mc.android.Adapter.RefuelAdapter;
 
+import static java.lang.String.valueOf;
+
 public class ActivityRefuelList extends Activity implements OnBackPressedListener, View.OnClickListener  {
 
     private static final String TAG = "TANK";
@@ -124,6 +126,7 @@ public class ActivityRefuelList extends Activity implements OnBackPressedListene
             case R.id.activity_refuel_List_imageButton_statistic:{
                 Log.i(TAG,"Statistic");
                 //Send him List view
+                Log.i("TANK",valueOf(refuelList.size()));
                 getIntent().putExtra("RefuelList", (Serializable) refuelList);
                 //send CarMileAge
                 getIntent().putExtra("CarMileage", car.getmMileage());

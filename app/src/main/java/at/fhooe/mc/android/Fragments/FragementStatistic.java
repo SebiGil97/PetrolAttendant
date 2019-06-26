@@ -36,7 +36,7 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
     float consumption=0;
     float averagePrice=0;
     float diffdistanz;
-    boolean trend;
+    int trend;  //1... bad  , 2... neutal , 3...better
     List<Refuel> refuelList;
 
     public FragementStatistic() {
@@ -51,13 +51,15 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
         Intent i = getActivity().getIntent();
         refuelList = (List<Refuel>) i.getSerializableExtra("RefuelList");
         carMileage = (Integer) i.getSerializableExtra("CarMileage");
-
+        trend=2;
+        Log.i("TANK",valueOf(refuelList.size()));
         //calculat consumption and average price per 100km
         if(refuelList.size()==1){
            float distance = refuelList.get(0).getmMileage() - carMileage;
            distance = distance/100;
            consumption = refuelList.get(0).getmLiter()/distance;
            averagePrice = refuelList.get(0).getmPrice()/distance;
+           trend=2;
         }else if(refuelList.size()>1){
             float distance =refuelList.get(refuelList.size()-1).getmMileage() - carMileage;
             distance = distance/100;
@@ -75,9 +77,11 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
             Log.i(TAG,valueOf(refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz));
 
             if(consumption>refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz){
-                trend = true;  //"Keep it up!"
+                trend = 3;  //"Keep it up!"
+            }else if(consumption<refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz){
+                trend = 1; //"You can do that better!"
             }else{
-                trend = false; //"You can do that better!"
+                trend = 2;
             }
 
         }
@@ -101,12 +105,15 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
         ImageView iv = null;
         iv = (ImageView) view.findViewById(R.id.activity_refuel_imageView_trend);
 
-        if(trend == true) {
-            tv.setText("Keep it up!");
+        if(trend == 3) {
+            tv.setText("Well done! Keep it up!");
             iv.setImageResource(R.drawable.icon_green_arrow_up_225);
-        }else {
+        }else if(trend == 1) {
             tv.setText("You can do that better!");
             iv.setImageResource(R.drawable.icon_red_arrow_down_225);
+        }else if(trend == 2){
+            tv.setText("Try to improve!");
+            iv.setImageResource(R.drawable.icon_black_arrow_neutral);
         }
 
         return view;
