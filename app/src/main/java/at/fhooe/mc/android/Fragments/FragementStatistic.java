@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class FragementStatistic extends Fragment {
     float consumption=0;
     float averagePrice=0;
     float diffdistanz;
-    String trend = " - " ;
+    boolean trend;
 
     public FragementStatistic() {
         // Required empty public constructor
@@ -68,10 +69,9 @@ public class FragementStatistic extends Fragment {
             Log.i(TAG,valueOf(refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz));
 
             if(consumption>refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz){
-
-                trend="Keep it up!";
+                trend = true;  //"Keep it up!"
             }else{
-                trend="You can do that better!";
+                trend = false; //"You can do that better!"
             }
 
         }
@@ -91,8 +91,17 @@ public class FragementStatistic extends Fragment {
         tv = (TextView) view.findViewById(R.id.activity_refuel_textview_cost);
         tv.setText(String.format("%.2f",averagePrice) + " € / 100km");
         tv = (TextView) view.findViewById(R.id.activity_refuel_textview_trend);
-        tv.setText(trend);
 
+        ImageView iv = null;
+        iv = (ImageView) view.findViewById(R.id.activity_refuel_imageView_trend);
+
+        if(trend == true) {
+            tv.setText("Keep it up!");
+            iv.setImageResource(R.drawable.icon_green_arrow_up_225);
+        }else {
+            tv.setText("You can do that better!");
+            iv.setImageResource(R.drawable.icon_red_arrow_down_225);
+        }
 
         return view;
     }

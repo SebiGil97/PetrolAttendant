@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,11 +13,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/fragment_refuel_list_button_delete"
+        <TextView
+            android:id="@+id/fragment_refuel_textView_mileage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="delete"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/fragment_refuel_list_imageButton_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/petrolattendent_icon_trash_black_dp50"
+            style="?android:attr/borderlessButtonStyle"
             android:visibility="gone" />
 
         <ListView

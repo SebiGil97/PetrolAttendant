@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import at.fhooe.mc.android.R;
 public class FragmentRefuelList extends Fragment {
 
     List<Refuel> refuelList;
+    private Car car;
 
     //firebase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -59,13 +61,9 @@ public class FragmentRefuelList extends Fragment {
         super.onCreate(savedInstanceState);
         Log.i(TAG,"Fragment on Create");
 
-
-
-
-
         //get Car Intent
         Intent i = getActivity().getIntent();
-        Car car = (Car) i.getSerializableExtra("myCarRef");
+        car = (Car) i.getSerializableExtra("myCarRef");
 
         //Intalize List
         refuelList=new LinkedList<Refuel>();
@@ -100,9 +98,6 @@ public class FragmentRefuelList extends Fragment {
 
         });
 
-
-
-
     }
 
     @Override
@@ -113,6 +108,9 @@ public class FragmentRefuelList extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_fragment_refuel_list, container, false);
 
+        TextView tv = (TextView) view.findViewById(R.id.fragment_refuel_textView_mileage);
+        tv.setText("first mileage " + Integer.valueOf(car.getmMileage()) + " km");
+
         //--------Dynamic List--------
         final ListView lv=(ListView) view.findViewById(R.id.fragment_refuel_list_listview);
 
@@ -121,9 +119,9 @@ public class FragmentRefuelList extends Fragment {
         lv.setAdapter(adapter);
 
         //delete Button
-        Button b=null;
-        b = (Button) view.findViewById(R.id.fragment_refuel_list_button_delete);
-        b.setOnClickListener(new View.OnClickListener() {
+        ImageButton ib = null;
+        ib = (ImageButton) view.findViewById(R.id.fragment_refuel_list_imageButton_delete);
+        ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG,"delete pressed!");
@@ -142,6 +140,7 @@ public class FragmentRefuelList extends Fragment {
             }
         });
 
+
         //for delete
         lv.setClickable(true);
         lv.setLongClickable(true);
@@ -149,7 +148,7 @@ public class FragmentRefuelList extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                                   int _pos, long id) {
-                View v = (View) view.findViewById(R.id.fragment_refuel_list_button_delete);
+                View v = (View) view.findViewById(R.id.fragment_refuel_list_imageButton_delete);
                 v.setVisibility(View.VISIBLE);  //makes Delete Button Visible
                 //make checkbox visible
                 for(int i=0; i<refuelList.size(); i++){
@@ -170,7 +169,7 @@ public class FragmentRefuelList extends Fragment {
             refuelList.get(i).setReadyDelete(false);
         }
         deleteON=false;
-        View v1 = (View) getView().findViewById(R.id.fragment_refuel_list_button_delete);
+        View v1 = (View) getView().findViewById(R.id.fragment_refuel_list_imageButton_delete);
         v1.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -45,13 +46,16 @@ public class ActivityRefuelList extends Activity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refuel_list);
-        Button b=null;
-        b=findViewById(R.id.activity_refuel_list_button_addRefuel);
+
+        Button b = null;
+        b = findViewById(R.id.activity_refuel_list_button_addRefuel);
         b.setOnClickListener(this);
-        b=findViewById(R.id.activity_refuel_list_button_showRefuelList);
-        b.setOnClickListener(this);
-        b=findViewById(R.id.activity_refuel_List_button_statistic);
-        b.setOnClickListener(this);
+
+        ImageButton ib = null;
+        ib = (ImageButton) findViewById(R.id.activity_refuel_list_imageButton_showRefuelList);
+        ib.setOnClickListener(this);
+        ib = (ImageButton) findViewById(R.id.activity_refuel_List_imageButton_statistic);
+        ib.setOnClickListener(this);
 
         //Intalize List
         refuelList=new LinkedList<Refuel>();
@@ -109,13 +113,13 @@ public class ActivityRefuelList extends Activity implements View.OnClickListener
                 }
                 startActivityForResult(intent,2);}
                 break;
-            case R.id.activity_refuel_list_button_showRefuelList:{
+            case R.id.activity_refuel_list_imageButton_showRefuelList:{
                 Log.i(TAG,"RefuelList pressed");
                 FragmentTransaction fT = fMgr.beginTransaction();
                 fT.replace(R.id.activity_refuel_list_fragmentcontainer, new FragmentRefuelList());
                 fT.commit();}
                 break;
-            case R.id.activity_refuel_List_button_statistic:{
+            case R.id.activity_refuel_List_imageButton_statistic:{
                 Log.i(TAG,"Statistic");
                 //Send him List view
                 getIntent().putExtra("RefuelList", (Serializable) refuelList);

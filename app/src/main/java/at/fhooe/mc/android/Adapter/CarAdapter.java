@@ -43,16 +43,27 @@ public class CarAdapter extends ArrayAdapter<Car> {
         ImageView iv = null;
         iv = (ImageView)_convertView.findViewById(R.id.activity_main_list_car_imageView);
 
+        //---------- car brands for carList ----------
         if(data.getmCar().length() >= 4 && data.getmCar().substring(0,4).toLowerCase().equals("audi")) {
             iv.setImageResource(R.drawable.icon_audi_50);
         }else if(data.getmCar().length() >= 10 && data.getmCar().substring(0,10).toLowerCase().equals("alfa romeo")) {
             iv.setImageResource(R.drawable.icon_black_alfa_romeo_50);
         }else if(data.getmCar().length() >= 3 && data.getmCar().substring(0,3).toLowerCase().equals("bmw")) {
             iv.setImageResource(R.drawable.icon_black_bmw_50);
+        }else if(data.getmCar().length() >= 9 && data.getmCar().substring(0,9).toLowerCase().equals("chevrolet")){
+            iv.setImageResource(R.drawable.icon_chevrolet_48);
         }else if(data.getmCar().length() >= 7 && data.getmCar().substring(0,7).toLowerCase().equals("ferrari")) {
             iv.setImageResource(R.drawable.icon_black_ferrari_50);
         }else if(data.getmCar().length() >= 11 && data.getmCar().substring(0,11).toLowerCase().equals("lamborghini")){
             iv.setImageResource(R.drawable.icon_black_lamborghini_50);
+        }else if(data.getmCar().length() >= 8 && data.getmCar().substring(0,8).toLowerCase().equals("mercedes")){
+            iv.setImageResource(R.drawable.icon_mercedes_48);
+        }else if(data.getmCar().length() >= 2 && data.getmCar().substring(0,2).toLowerCase().equals("mg")){
+            iv.setImageResource(R.drawable.icon_mg_48);
+        }else if(data.getmCar().length() >= 7 && data.getmCar().substring(0,7).toLowerCase().equals("porsche")){
+            iv.setImageResource(R.drawable.icon_porsche_48);
+        }else if(data.getmCar().length() >= 7 && data.getmCar().substring(0,7).toLowerCase().equals("renault")){
+            iv.setImageResource(R.drawable.icon_renault_225);
         }else if(data.getmCar().length() >= 6 && data.getmCar().substring(0,6).toLowerCase().equals("suzuki")) {
             iv.setImageResource(R.drawable.icon_black_suzuki_50);
         }else if(data.getmCar().length() >= 5 && data.getmCar().substring(0,5).toLowerCase().equals("tesla")){
