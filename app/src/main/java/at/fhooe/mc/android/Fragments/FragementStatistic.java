@@ -32,6 +32,7 @@ public class FragementStatistic extends Fragment {
     float averagePrice=0;
     float diffdistanz;
     boolean trend;
+    List<Refuel> refuelList;
 
     public FragementStatistic() {
         // Required empty public constructor
@@ -43,12 +44,12 @@ public class FragementStatistic extends Fragment {
 
         //get Car Intent
         Intent i = getActivity().getIntent();
-        List<Refuel> refuelList= (List<Refuel>) i.getSerializableExtra("RefuelList");
+        refuelList = (List<Refuel>) i.getSerializableExtra("RefuelList");
         carMileage = (Integer) i.getSerializableExtra("CarMileage");
 
         //calculat consumption and average price per 100km
         if(refuelList.size()==1){
-           float distance =refuelList.get(0).getmMileage() - carMileage;
+           float distance = refuelList.get(0).getmMileage() - carMileage;
            distance = distance/100;
            consumption = refuelList.get(0).getmLiter()/distance;
            averagePrice = refuelList.get(0).getmPrice()/distance;

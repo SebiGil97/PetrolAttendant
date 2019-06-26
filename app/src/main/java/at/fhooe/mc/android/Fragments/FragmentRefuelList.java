@@ -2,6 +2,7 @@ package at.fhooe.mc.android.Fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -10,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,35 +25,37 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.fhooe.mc.android.Activity.ActivityAddRefuel;
+import at.fhooe.mc.android.Activity.OnBackPressedListener;
 import at.fhooe.mc.android.Adapter.RefuelAdapter;
 import at.fhooe.mc.android.Objects.Car;
 import at.fhooe.mc.android.Objects.Refuel;
 import at.fhooe.mc.android.R;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentRefuelList extends Fragment {
+public class FragmentRefuelList extends Fragment implements OnBackPressedListener {
 
+    private static final String SP_KEY = "PatrolAttendent";
+    private static final String VALUE_KEY = "FragmentDeleteBoolean";
     List<Refuel> refuelList;
     private Car car;
 
     //firebase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference carRef;
+
     //Listview
-
     RefuelAdapter adapter;
-    boolean deleteON = false;
-
+    boolean deleteON;
 
     private static final String TAG = "TANK";
 
     public FragmentRefuelList() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -168,12 +169,11 @@ public class FragmentRefuelList extends Fragment {
             refuelList.get(i).setDelete(false);
             refuelList.get(i).setReadyDelete(false);
         }
-        deleteON=false;
+        deleteON = false;
         View v1 = (View) getView().findViewById(R.id.fragment_refuel_list_imageButton_delete);
         v1.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
-
 
     @Override
     public void onPause() {
@@ -181,6 +181,24 @@ public class FragmentRefuelList extends Fragment {
 
         closeDeleteMode();
     }
+
+    @Override
+    public void onBackPressed() {
+        //remove delete Buttons
+
+        SharedPreferences sp = getActivity().getSharedPreferences(SP_KEY, MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putBoolean(VALUE_KEY, deleteON);
+
+        if(deleteON){
+            closeDeleteMode();
+        }
+
+        edit.commit();
+
+        Log.i(TAG,"back");
+    }
+
 
 
 }

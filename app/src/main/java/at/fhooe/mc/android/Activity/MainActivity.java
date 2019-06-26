@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "TANK";
     List<Car> carList;
     CarAdapter adapter;
-    boolean deleteON =false;
+    boolean deleteON = false;
 
     //firebase
 

@@ -2,6 +2,7 @@ package at.fhooe.mc.android.Activity;
 
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -32,9 +33,10 @@ import at.fhooe.mc.android.R;
 import at.fhooe.mc.android.Objects.Refuel;
 import at.fhooe.mc.android.Adapter.RefuelAdapter;
 
-public class ActivityRefuelList extends Activity implements View.OnClickListener {
+public class ActivityRefuelList extends Activity implements OnBackPressedListener, View.OnClickListener  {
 
     private static final String TAG = "TANK";
+    private static final String SP_KEY = "PatrolAttendent";
     List<Refuel> refuelList;
     Car car;
     //firebase
@@ -150,6 +152,28 @@ public class ActivityRefuelList extends Activity implements View.OnClickListener
             FragmentTransaction fT = fMgr.beginTransaction();
             fT.replace(R.id.activity_refuel_list_fragmentcontainer, new FragmentRefuelList());
             fT.commit();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sp = getSharedPreferences(SP_KEY, MODE_PRIVATE);
+
+        List<Fragment> fragmentList = getFragmentManager().getFragments();
+        if (fragmentList != null) {
+
+            for(Fragment fragment : fragmentList){
+
+                if(fragment instanceof OnBackPressedListener){
+                    ((OnBackPressedListener)fragment).onBackPressed();
+                    Boolean deleteON = sp.getBoolean("FragmentDeleteBoolean", true); // holt sich String
+
+                    if(deleteON == false){
+                        super.onBackPressed();
+                    }
+                }
+
+            }
         }
     }
 }
