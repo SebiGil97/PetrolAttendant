@@ -88,7 +88,9 @@ public class ActivityRefuelList extends Activity implements OnBackPressedListene
                 List<Refuel> refuelListRestore = dataSnapshot.getValue(new GenericTypeIndicator<List<Refuel>>() {});
                 if(refuelListRestore!=null){
                     refuelList=refuelListRestore;
-
+                    Log.i("TANK","download");
+                } else {
+                    refuelList=new LinkedList<Refuel>();
                 }
             }
 
