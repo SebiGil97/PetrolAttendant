@@ -46,6 +46,8 @@ public class RefuelAdapter extends ArrayAdapter<Refuel> {
         tv.setText("Liter: " + String.format("%.2f",data.getmLiter())+ "L");//
         tv = (TextView)_convertView.findViewById(R.id.list_refuel_textView_price);
         tv.setText("Price: " + String.format("%.2f",data.getmPrice()) + "€");
+        tv = (TextView)_convertView.findViewById(R.id.list_refuel_textView_mileage);
+        tv.setText("Mileage: " + data.getmMileage() + " km");
 
         //for delete
 

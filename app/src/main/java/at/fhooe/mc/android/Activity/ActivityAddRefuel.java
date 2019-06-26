@@ -39,16 +39,23 @@ public class ActivityAddRefuel extends Activity implements View.OnClickListener 
                 Log.i(TAG,"SaveRefuel pressed");
 
                 EditText mileage=(EditText)findViewById(R.id.activity_add_refuel_mileage);
+                EditText price = (EditText) findViewById(R.id.activity_add_refuel_price);
+                EditText liter = (EditText) findViewById(R.id.activity_add_refuel_liter);
+
+                if(mileage.getText().toString().equals("")){
+                    Toast.makeText(this, "please enter a mileage", Toast.LENGTH_SHORT).show();
+                }else if(price.getText().toString().equals("")){
+                    Toast.makeText(this, "please enter a price", Toast.LENGTH_SHORT).show();
+                }else if(liter.getText().toString().isEmpty()) {
+                    Toast.makeText(this, "please enter amount of liters", Toast.LENGTH_SHORT).show();
+                }else{
                 int newMileage = Integer.parseInt(mileage.getText().toString());
 
                 //safe for wrong
-                if(newMileage>lastMileage) {
+                if (newMileage > lastMileage) {
 
-                    EditText price = (EditText) findViewById(R.id.activity_add_refuel_price);
                     float newPrice = Float.parseFloat(price.getText().toString());
-                    EditText liter = (EditText) findViewById(R.id.activity_add_refuel_liter);
                     float newLiter = Float.parseFloat(liter.getText().toString());
-
                     Refuel myRefuel = new Refuel(newPrice, newLiter, Calendar.getInstance().getTime(), newMileage);
 
                     /*--------- return intent ----------*/
@@ -56,9 +63,10 @@ public class ActivityAddRefuel extends Activity implements View.OnClickListener 
                     returnIntent.putExtra("myRefuel", myRefuel);
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
-                }else{
-                    Toast.makeText(this,"mileage must be over: " + lastMileage ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "mileage must be over: " + lastMileage, Toast.LENGTH_LONG).show();
                 }
+            }
                 break;
 
 

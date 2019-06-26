@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import at.fhooe.mc.android.Activity.MainActivity;
 import at.fhooe.mc.android.Objects.Car;
 import at.fhooe.mc.android.R;
 
@@ -38,16 +40,30 @@ public class CarAdapter extends ArrayAdapter<Car> {
         tv = (TextView)_convertView.findViewById(R.id.activity_main_list_car_textview_carname);
         tv.setText(data.getmCar());
 
-        Button b = (Button) _convertView.findViewById(R.id.activity_main_list_car_button_settings);
-        b.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Toast.makeText(getContext(), data.getmCar() + " options", Toast.LENGTH_SHORT).show();
-                /*   remove(data);
-                mCars.remove(data);
-                notifyDataSetChanged();*/
-            }
-        });
+        ImageView iv = null;
+        iv = (ImageView)_convertView.findViewById(R.id.activity_main_list_car_imageView);
+
+        if(data.getmCar().length() >= 4 && data.getmCar().substring(0,4).toLowerCase().equals("audi")) {
+            iv.setImageResource(R.drawable.icon_audi_50);
+        }else if(data.getmCar().length() >= 10 && data.getmCar().substring(0,10).toLowerCase().equals("alfa romeo")) {
+            iv.setImageResource(R.drawable.icon_black_alfa_romeo_50);
+        }else if(data.getmCar().length() >= 3 && data.getmCar().substring(0,3).toLowerCase().equals("bmw")) {
+            iv.setImageResource(R.drawable.icon_black_bmw_50);
+        }else if(data.getmCar().length() >= 7 && data.getmCar().substring(0,7).toLowerCase().equals("ferrari")) {
+            iv.setImageResource(R.drawable.icon_black_ferrari_50);
+        }else if(data.getmCar().length() >= 11 && data.getmCar().substring(0,11).toLowerCase().equals("lamborghini")){
+            iv.setImageResource(R.drawable.icon_black_lamborghini_50);
+        }else if(data.getmCar().length() >= 6 && data.getmCar().substring(0,6).toLowerCase().equals("suzuki")) {
+            iv.setImageResource(R.drawable.icon_black_suzuki_50);
+        }else if(data.getmCar().length() >= 5 && data.getmCar().substring(0,5).toLowerCase().equals("tesla")){
+            iv.setImageResource(R.drawable.icon_black_tesla_50);
+        }else if(data.getmCar().length() >= 2 && data.getmCar().substring(0,2).toLowerCase().equals("vw")){
+            iv.setImageResource(R.drawable.icon_volkswagen_50);
+        }else if(data.getmCar().length() >= 4 && data.getmCar().substring(0,4).toLowerCase().equals("opel")){
+            iv.setImageResource(R.drawable.icon_black_traffic_accident_50);
+        }else {
+            iv.setImageResource(R.drawable.petrolattendent_icon_car_with_people_black_dp50);
+        }
 
 
         //for delete

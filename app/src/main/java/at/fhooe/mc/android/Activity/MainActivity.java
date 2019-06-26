@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -44,11 +45,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(_savedInstanceState);
         setContentView(R.layout.activity_main);
         carList=new LinkedList<Car>();
-        Button b=null;
-        b=(Button)findViewById(R.id.activity_main_button_addCar);
-        b.setOnClickListener(this);
-        b=(Button)findViewById(R.id.activity_main_button_delete);
-        b.setOnClickListener(this);
+
+        ImageButton ib = null;
+        ib = (ImageButton) findViewById(R.id.activity_main_imageButton_addCar);
+        ib.setOnClickListener(this);
+        ib = (ImageButton) findViewById(R.id.activity_main_imageButton_delete);
+        ib.setOnClickListener(this);
+
 
 
         // Read from the database
@@ -105,7 +108,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int _pos, long id) {
-                View v = findViewById(R.id.activity_main_button_delete);
+                View v = findViewById(R.id.activity_main_imageButton_delete);
                 v.setVisibility(View.VISIBLE);  //makes Delete Button Visible
 
                 //make checkbox visible
@@ -139,12 +142,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View _v) {
         switch (_v.getId()){
-            case R.id.activity_main_button_addCar:
+            case R.id.activity_main_imageButton_addCar:
                 Log.i(TAG,"Add car pressed");
                 Intent intent=new Intent(this, ActivityAddCar.class);
                 startActivityForResult(intent,1);
                 break;
-            case R.id.activity_main_button_delete:
+            case R.id.activity_main_imageButton_delete:
                 Log.i(TAG,"delete pressed");
 
                 //removes checked items from list
@@ -208,7 +211,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             carList.get(i).setReadyDelete(false);
         }
         deleteON=false;
-        View v = findViewById(R.id.activity_main_button_delete);
+        View v = findViewById(R.id.activity_main_imageButton_delete);
         v.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }

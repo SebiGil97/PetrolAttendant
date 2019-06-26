@@ -18,10 +18,10 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Preis"
+                android:text="Price"
                 android:textSize="30sp" />
 
             <EditText
@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Liter"
@@ -64,7 +64,7 @@
 
             <TextView
                 android:id="@+id/TextView3"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Mileage"

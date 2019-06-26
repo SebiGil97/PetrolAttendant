@@ -37,10 +37,12 @@ import at.fhooe.mc.android.R;
 public class FragmentRefuelList extends Fragment {
 
     List<Refuel> refuelList;
+
     //firebase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference carRef;
     //Listview
+
     RefuelAdapter adapter;
     boolean deleteON = false;
 
@@ -63,7 +65,7 @@ public class FragmentRefuelList extends Fragment {
 
         //get Car Intent
         Intent i = getActivity().getIntent();
-        Car car= (Car) i.getSerializableExtra("myCarRef");
+        Car car = (Car) i.getSerializableExtra("myCarRef");
 
         //Intalize List
         refuelList=new LinkedList<Refuel>();
@@ -172,6 +174,7 @@ public class FragmentRefuelList extends Fragment {
         v1.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void onPause() {
