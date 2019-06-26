@@ -3,6 +3,7 @@ package at.fhooe.mc.android.Fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -33,8 +34,10 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
     private static final String TAG = "TANK";
 
     int carMileage;
-    float consumption=0;
+    float averageConsumption=0;
     float averagePrice=0;
+    float lastConsumption=0;
+    float lastPrice=0;
     float diffdistanz;
     int trend;  //1... bad  , 2... neutal , 3...better
     List<Refuel> refuelList;
@@ -51,40 +54,45 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
         Intent i = getActivity().getIntent();
         refuelList = (List<Refuel>) i.getSerializableExtra("RefuelList");
         carMileage = (Integer) i.getSerializableExtra("CarMileage");
-        trend=2;
+        trend = 2;
         Log.i("TANK",valueOf(refuelList.size()));
-        //calculat consumption and average price per 100km
-        if(refuelList.size()==1){
-           float distance = refuelList.get(0).getmMileage() - carMileage;
+
+        //calculat average consumption and average price per 100km
+        if(refuelList.size()==2){
+           float distance = refuelList.get(refuelList.size()-1).getmMileage() - refuelList.get(refuelList.size()-2).getmMileage();
            distance = distance/100;
-           consumption = refuelList.get(0).getmLiter()/distance;
-           averagePrice = refuelList.get(0).getmPrice()/distance;
-           trend=2;
-        }else if(refuelList.size()>1){
-            float distance =refuelList.get(refuelList.size()-1).getmMileage() - carMileage;
+           averageConsumption = refuelList.get(refuelList.size()-2).getmLiter()/distance;
+           averagePrice = refuelList.get(refuelList.size()-2).getmPrice()/distance;
+           trend = 2;
+        }else if(refuelList.size()>2){
+            float distance = refuelList.get(refuelList.size()-2).getmMileage() - carMileage;
             distance = distance/100;
-            for(int y=0;y<refuelList.size();y++){
-                consumption = consumption + refuelList.get(y).getmLiter();
+            for(int y=0;y<refuelList.size()-1;y++){
+                averageConsumption = averageConsumption + refuelList.get(y).getmLiter();
                 averagePrice = averagePrice + refuelList.get(y).getmPrice();
             }
-            consumption = consumption / distance;
+            averageConsumption = averageConsumption / distance;
             averagePrice = averagePrice / distance;
+        }
+        if(refuelList.size() > 1) {
+            //--------- calculate last consumption and trend ----------
+            diffdistanz = refuelList.get(refuelList.size() - 1).getmMileage() - refuelList.get(refuelList.size() - 2).getmMileage();
+            diffdistanz = diffdistanz / 100;
 
-            //calculate Trend
-            diffdistanz=refuelList.get(refuelList.size()-1).getmMileage()-refuelList.get(refuelList.size()-2).getmMileage();
-            diffdistanz=diffdistanz/100;
-
-            Log.i(TAG,valueOf(refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz));
-
-            if(consumption>refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz){
+            lastConsumption = refuelList.get(refuelList.size() - 2).getmLiter() / diffdistanz;
+            lastPrice = refuelList.get(refuelList.size() - 2).getmPrice() / diffdistanz;
+            Log.i(TAG, valueOf(refuelList.get(refuelList.size() - 2).getmLiter() / diffdistanz));
+        }
+            if(averageConsumption > lastConsumption){
                 trend = 3;  //"Keep it up!"
-            }else if(consumption<refuelList.get(refuelList.size()-1).getmLiter()/diffdistanz){
+            }else if(averageConsumption < lastConsumption){
                 trend = 1; //"You can do that better!"
+            }else if(averageConsumption == 0 && lastConsumption == 0){
+                trend = 0; //""
             }else{
                 trend = 2;
             }
 
-        }
 
 
     }
@@ -96,10 +104,14 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
         View view = inflater.inflate(R.layout.fragment_fragement_statistic, container, false);
 
         TextView tv = null;
-        tv = (TextView) view.findViewById(R.id.activity_refuel_list_textview_consumption);
-        tv.setText(String.format("%.2f",consumption) +" l / 100km");
-        tv = (TextView) view.findViewById(R.id.activity_refuel_textview_cost);
+        tv = (TextView) view.findViewById(R.id.activity_refuel_list_textview_average_consumption);
+        tv.setText(String.format("%.2f",averageConsumption) +" l / 100km");
+        tv = (TextView) view.findViewById(R.id.activity_refuel_textview_average_cost);
         tv.setText(String.format("%.2f",averagePrice) + " € / 100km");
+        tv = (TextView) view.findViewById(R.id.activity_refuel_list_textview_last_consumption);
+        tv.setText(String.format("%.2f",lastConsumption) +" l / 100km");
+        tv = (TextView) view.findViewById(R.id.activity_refuel_textview_last_cost);
+        tv.setText(String.format("%.2f",lastPrice) + " € / 100km");
         tv = (TextView) view.findViewById(R.id.activity_refuel_textview_trend);
 
         ImageView iv = null;
@@ -107,12 +119,18 @@ public class FragementStatistic extends Fragment implements OnBackPressedListene
 
         if(trend == 3) {
             tv.setText("Well done! Keep it up!");
+            tv.setTextColor(Color.GREEN);
             iv.setImageResource(R.drawable.icon_green_arrow_up_225);
         }else if(trend == 1) {
             tv.setText("You can do that better!");
+            tv.setTextColor(Color.RED);
             iv.setImageResource(R.drawable.icon_red_arrow_down_225);
         }else if(trend == 2){
             tv.setText("Try to improve!");
+            tv.setTextColor(Color.BLACK);
+            iv.setImageResource(R.drawable.icon_black_arrow_neutral);
+        }else{
+            tv.setText("");
             iv.setImageResource(R.drawable.icon_black_arrow_neutral);
         }
 

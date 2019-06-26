@@ -12,7 +12,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/activity_refuel_list_textview_consumption"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="average consumption:"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/activity_refuel_list_textview_average_consumption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="7l/100km"
@@ -21,11 +28,38 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/activity_refuel_textview_cost"
+            android:id="@+id/activity_refuel_textview_average_cost"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="€10/km"
             android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="last consumption:"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/activity_refuel_list_textview_last_consumption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="36sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/activity_refuel_textview_last_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/just_to_keep_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
