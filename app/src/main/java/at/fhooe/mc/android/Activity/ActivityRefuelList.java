@@ -158,7 +158,7 @@ public class ActivityRefuelList extends Activity implements OnBackPressedListene
     @Override
     public void onBackPressed() {
         SharedPreferences sp = getSharedPreferences(SP_KEY, MODE_PRIVATE);
-
+        Boolean deleteON = false;
         List<Fragment> fragmentList = getFragmentManager().getFragments();
         if (fragmentList != null) {
 
@@ -166,7 +166,7 @@ public class ActivityRefuelList extends Activity implements OnBackPressedListene
 
                 if(fragment instanceof OnBackPressedListener){
                     ((OnBackPressedListener)fragment).onBackPressed();
-                    Boolean deleteON = sp.getBoolean("FragmentDeleteBoolean", true); // holt sich String
+                    deleteON = sp.getBoolean("FragmentDeleteBoolean", true); // holt sich String
 
                     if(deleteON == false){
                         super.onBackPressed();

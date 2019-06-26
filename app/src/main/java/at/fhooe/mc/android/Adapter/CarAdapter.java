@@ -64,6 +64,8 @@ public class CarAdapter extends ArrayAdapter<Car> {
             iv.setImageResource(R.drawable.icon_porsche_48);
         }else if(data.getmCar().length() >= 7 && data.getmCar().substring(0,7).toLowerCase().equals("renault")){
             iv.setImageResource(R.drawable.icon_renault_225);
+        }else if(data.getmCar().length() >= 4 && data.getmCar().substring(0,4).toLowerCase().equals("seat")) {
+            iv.setImageResource(R.drawable.icon_seat_100);
         }else if(data.getmCar().length() >= 6 && data.getmCar().substring(0,6).toLowerCase().equals("suzuki")) {
             iv.setImageResource(R.drawable.icon_black_suzuki_50);
         }else if(data.getmCar().length() >= 5 && data.getmCar().substring(0,5).toLowerCase().equals("tesla")){

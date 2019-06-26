@@ -2,6 +2,7 @@ package at.fhooe.mc.android.Fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -14,19 +15,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import at.fhooe.mc.android.Activity.OnBackPressedListener;
 import at.fhooe.mc.android.Objects.Car;
 import at.fhooe.mc.android.Objects.Refuel;
 import at.fhooe.mc.android.R;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.String.valueOf;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragementStatistic extends Fragment {
+public class FragementStatistic extends Fragment implements OnBackPressedListener {
 
-
+    private static final String SP_KEY = "PatrolAttendent";
+    private static final String VALUE_KEY = "FragmentDeleteBoolean";
     private static final String TAG = "TANK";
+
     int carMileage;
     float consumption=0;
     float averagePrice=0;
@@ -108,5 +113,11 @@ public class FragementStatistic extends Fragment {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sp = getActivity().getSharedPreferences(SP_KEY, MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putBoolean(VALUE_KEY, false);
+        edit.commit();
+    }
 }
