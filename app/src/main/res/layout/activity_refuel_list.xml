@@ -12,14 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/activity_refuel_list_button_addRefuel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="add refuel"
-            android:textSize="30sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +32,14 @@
                 android:src="@drawable/petrolattendent_icon_chart_black_dp50" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/activity_refuel_list_button_addRefuel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="add refuel"
+            android:textSize="30sp" />
 
         <FrameLayout
             android:id="@+id/activity_refuel_list_fragmentcontainer"

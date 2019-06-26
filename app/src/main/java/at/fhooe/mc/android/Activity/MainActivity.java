@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("CarList");
-
+    DatabaseReference refuelRef;
 
     @Override
     protected void onCreate(Bundle _savedInstanceState) {
@@ -51,7 +52,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ib.setOnClickListener(this);
         ib = (ImageButton) findViewById(R.id.activity_main_imageButton_delete);
         ib.setOnClickListener(this);
-
 
 
         // Read from the database
@@ -145,6 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.activity_main_imageButton_addCar:
                 Log.i(TAG,"Add car pressed");
                 Intent intent=new Intent(this, ActivityAddCar.class);
+                intent.putExtra("carList",(Serializable)carList);
                 startActivityForResult(intent,1);
                 break;
             case R.id.activity_main_imageButton_delete:
@@ -153,6 +154,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //removes checked items from list
                 for(int i=0; i<carList.size();i++){
                     if(carList.get(i).isReadyDelete()){
+                        //remove refuelList from firebase
+                        refuelRef = database.getReference(carList.get(i).getmCar());
+                        refuelRef.removeValue();
+                        //remove car
                         adapter.remove(carList.get(i));
                         carList.remove(i);
                         i--;
